@@ -1,0 +1,44 @@
+[versions]
+agp = "8.6.1" # OK, última estable
+junit = "4.13.2"
+junitVersion = "1.2.1" # para ext-junit
+espressoCore = "3.6.1"
+appcompat = "1.7.0" # OK
+material = "1.12.0" # OK
+activity = "1.10.1" # Estable más segura para ahora
+constraintlayout = "2.2.1" # OK
+retrofit = "2.9.0" # última estable
+gson = "2.10.1" # más reciente que la tuya
+okhttp = "4.12.0" # actual
+preferences = "1.2.1" # OK
+auth0 = "2.0.1"
+# Para imágenes
+glide = "4.16.0"
+glideCompiler = "4.16.0"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# Retrofit + Gson + OkHttp
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+preferences = { group = "androidx.preference", name = "preference", version.ref = "preferences" }
+auth0jwt = { group = "com.auth0.android", name = "jwtdecode", version.ref = "auth0" }
+# Mejor usar la estable:
+security-crypto = { group = "androidx.security", name = "security-crypto", version = "1.0.0" }
+
+# Librerías de carga de imágenes (elige una)
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideCompiler" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
