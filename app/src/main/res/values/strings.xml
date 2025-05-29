@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SWOP</string>
+    <string name="categorias">Categorías</string>
+    <string name="lego">Lego</string>
+    <string name="merchandising">Merchandising</string>
+    <string name="carrito">Carrito</string>
+    <string name="perfil">Perfil</string>
+    <string name="home">Home</string>
+    <string name="bienvenido_a_swop">Bienvenido a SWop</string>
+    <string name="tienda">Tienda</string>
+    <string name="pujas">Pujas</string>
+    <string name="derechos_reservados">Todos los derechos reservados a Star Wars®</string>
 </resources>

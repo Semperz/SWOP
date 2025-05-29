@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.SWOP.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/toolbar_scrim</item>
+        <item name="titleCentered">true</item>
+        <item name="titleTextColor">@color/brand_yellow</item>
+        <item name="navigationIconTint">@color/brand_yellow</item>
+        <item name="subtitleTextColor">@color/brand_yellow</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.Material3.Light</item>
+    </style>
+</resources>
