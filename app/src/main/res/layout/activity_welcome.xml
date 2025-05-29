@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".WelcomeActivity">
+
+    <!-- Contenedor central de título y botones -->
+    <LinearLayout
+        android:id="@+id/centerGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/starWarsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bienvenido_a_swop"
+            android:textColor="@color/brand_yellow"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/star_jedi"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Botón Tienda -->
+        <Button
+            android:id="@+id/btnStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tienda"
+            android:fontFamily="@font/star_jedi"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/brand_yellow"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botón Pujas -->
+        <Button
+            android:id="@+id/btnBids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pujas"
+            android:fontFamily="@font/star_jedi"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/brand_yellow_dark"
+            android:textAllCaps="false"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Texto inferior de derechos -->
+    <TextView
+        android:id="@+id/legalNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/derechos_reservados"
+        android:textColor="@color/brand_yellow"
+        android:fontFamily="@font/star_jedi"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
