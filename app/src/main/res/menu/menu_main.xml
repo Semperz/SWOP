@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Ventana principal -->
+    <item android:id="@+id/action_home"
+        android:icon="@drawable/house_24"
+        android:title="@string/home"
+        app:showAsAction="always"/>
+
+    <!-- Perfil -->
+    <item android:id="@+id/action_profile"
+        android:icon="@drawable/person_profile_24"
+        android:title="@string/perfil"
+        app:showAsAction="always"/>
+
+    <!-- Carrito -->
+    <item android:id="@+id/action_cart"
+        android:icon="@drawable/shopping_cart_24"
+        android:title="@string/carrito"
+        app:showAsAction="always"/>
+
+    <!-- sub-menú Categorías -->
+    <item android:id="@+id/overflow_categories"
+        android:icon="@drawable/more_vert_24"
+        android:title="@string/categorias"
+        app:showAsAction="never">
+        <menu>
+            <item android:title="@string/categorias"
+                android:enabled="false"/>
+            <item android:id="@+id/cat_lego"
+                android:title="@string/lego"/>
+            <item android:id="@+id/cat_merch"
+                android:title="@string/merchandising"/>
+        </menu>
+    </item>
+</menu>
