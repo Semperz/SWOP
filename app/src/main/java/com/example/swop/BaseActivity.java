@@ -11,8 +11,8 @@ import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.swop.profile.ProfileActivity;
-import com.example.swop.shop.CartActivity;
-import com.example.swop.shop.CategoryActivity;
+import com.example.swop.shop.cartwindow.CartActivity;
+import com.example.swop.shop.categorywindow.CategoryActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.IOException;
