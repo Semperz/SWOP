@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.SWOP.Toolbar" parent="Widget.Material3.Toolbar">
+    <style name="Widget.Swop.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:background">@color/toolbar_scrim</item>
         <item name="titleCentered">true</item>
         <item name="titleTextColor">@color/brand_yellow</item>
         <item name="navigationIconTint">@color/brand_yellow</item>
         <item name="subtitleTextColor">@color/brand_yellow</item>
-        <item name="android:popupTheme">@style/ThemeOverlay.Material3.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.Swop.ToolbarPopup</item>
+    </style>
+
+    <style name="ThemeOverlay.Swop.ToolbarPopup" parent="ThemeOverlay.Material3.Light">
+        <item name="android:popupBackground">@color/toolbar_scrim</item>
+        <item name="android:textColor">@color/brand_yellow</item>
+        <item name="android:itemBackground">@color/toolbar_scrim</item>
+        <item name="android:fontFamily">@font/star_jedi</item>
+
+    </style>
+
+    <style name="ThemeOverlay.Swop.ToolbarAnimation" parent="ThemeOverlay.Material3.Light">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
 </resources>
