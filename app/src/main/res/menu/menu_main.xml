@@ -26,8 +26,6 @@
         android:title="@string/categorias"
         app:showAsAction="never">
         <menu>
-            <item android:title="@string/categorias"
-                android:enabled="false"/>
             <item android:id="@+id/cat_lego"
                 android:title="@string/lego"/>
             <item android:id="@+id/cat_merch"

@@ -5,6 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    style="@style/Widget.SWOP.Toolbar"
-    app:menu="@menu/menu_main" />
+    style="@style/Widget.Swop.Toolbar"
+    app:popupTheme="@style/ThemeOverlay.Swop.ToolbarPopup"
+    app:menu="@menu/menu_main"/>
 
