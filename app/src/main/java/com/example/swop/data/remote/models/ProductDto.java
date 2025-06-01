@@ -15,12 +15,12 @@ public class ProductDto {
     private String image;
     private List<Long> categoryIds;
     private Integer stock;
-    private LocalDateTime createDate;
+    private String createDate;
 
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String sku, String name, BigDecimal price, Double weight, String descriptions, String thumbnail, String image, List<Long> categoryIds, Integer stock, LocalDateTime createDate) {
+    public ProductDto(Long id, String sku, String name, BigDecimal price, Double weight, String descriptions, String thumbnail, String image, List<Long> categoryIds, Integer stock, String createDate) {
         this.id = id;
         this.sku = sku;
         this.name = name;
@@ -114,11 +114,11 @@ public class ProductDto {
         this.stock = stock;
     }
 
-    public LocalDateTime getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 }
