@@ -1,4 +1,4 @@
-package com.example.swop.shop;
+package com.example.swop.shop.categorywindow;
 
 import android.os.Bundle;
 
@@ -8,9 +8,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.swop.BaseActivity;
 import com.example.swop.R;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,4 +24,7 @@ public class CategoryActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override protected int getLayoutResId() {return R.layout.activity_category;}
+
 }
