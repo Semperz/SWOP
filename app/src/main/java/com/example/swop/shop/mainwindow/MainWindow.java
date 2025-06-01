@@ -47,7 +47,7 @@ public class MainWindow extends BaseActivity {
         adapter = new ProductListAdapter();
         adapter.setOnItemClickListener(product -> {
             Intent intent = new Intent(MainWindow.this, ProductDetailActivity.class);
-            intent.putExtra("productId", product.getId());
+            intent.putExtra("product_Id", product.getId());
             startActivity(intent);
         });
 
