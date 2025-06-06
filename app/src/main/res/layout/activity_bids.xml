@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bids.BidsActivity">
+
+    <include layout="@layout/toolbar_main" />
+
+    <!-- Nombre del producto -->
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nombre del producto"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/brand_yellow"
+        android:fontFamily="@font/star_jedi"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/ivProductImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Imagen del producto -->
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@id/tvProductName"
+        app:layout_constraintBottom_toTopOf="@+id/tvStartingPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Precio inicial -->
+    <TextView
+        android:id="@+id/tvStartingPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Precio inicial: $0"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/star_jedi"
+        app:layout_constraintTop_toBottomOf="@id/ivProductImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Puja más alta -->
+    <TextView
+        android:id="@+id/tvHighestBid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Puja más alta: $0"
+        android:textColor="@color/brand_yellow"
+        android:textSize="16sp"
+        android:fontFamily="@font/star_jedi"
+        app:layout_constraintTop_toBottomOf="@id/tvStartingPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <!-- Reloj de cuenta atrás -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tiempo restante: 00:00:00"
+        android:textColor="@color/brand_yellow"
+        android:textSize="24sp"
+        android:fontFamily="@font/star_jedi"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvHighestBid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Campo de monto para pujar -->
+    <EditText
+        android:id="@+id/etBidAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Tu puja"
+        android:inputType="numberDecimal"
+        android:fontFamily="@font/star_jedi"
+        android:textColor="@color/white"
+        android:textColorHint="@color/brand_yellow_dark"
+        android:backgroundTint="@color/brand_yellow"
+        app:layout_constraintTop_toBottomOf="@id/tvTimer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Botón de pujar -->
+    <Button
+        android:id="@+id/btnPlaceBid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="¡pujar!"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/star_jedi"
+        android:backgroundTint="@color/brand_yellow"
+        app:layout_constraintTop_toBottomOf="@id/etBidAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        android:layout_marginTop="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
