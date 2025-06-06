@@ -17,7 +17,7 @@ public interface ProductApi {
     Call<ProductDto> create(@Body ProductDto body);
 
     @PUT("api/products/{id}")
-    Call<ProductDto> update(@Path("id") long id, @Body ProductDto body);
+    Call<ProductDto> update(@Path("id") Long id, @Body ProductDto body);
 
     @DELETE("api/products/{id}")
     Call<Void> delete(@Path("id") long id);

@@ -1,5 +1,7 @@
 package com.example.swop.data.remote.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +15,7 @@ public class ProductDto {
     private String descriptions;
     private String thumbnail;
     private String image;
+    @SerializedName("categories")
     private List<Long> categoryIds;
     private Integer stock;
     private String createDate;
