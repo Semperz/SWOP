@@ -27,9 +27,20 @@ public class BidRepository {
     public void updateStatus(long bidId, String status, ApiCallback<BidDto> cb) { api.updateStatus(bidId, status).enqueue(wrap(cb, "updateStatus")); }
 
     private <R> Callback<R> wrap(ApiCallback<R> cb, String tag) { return new Callback<R>() {
-        @Override public void onResponse(Call<R> call, Response<R> res) { if (res.isSuccessful()) cb.onSuccess(res.body()); else cb.onFailure(new Exception("HTTP "+res.code())); }
+        @Override public void onResponse(Call<R> call, Response<R> res) {
+            if (res.isSuccessful()) {
+                if (res.body() != null) {
+                    cb.onSuccess(res.body());
+                } else {
+                    cb.onSuccess(null);  // "no hay puja"
+                }
+            } else {
+                cb.onFailure(new Exception("HTTP " + res.code()));
+            } }
         @Override public void onFailure(Call<R> call, Throwable t) { Log.e("BidRepo", tag, t); cb.onFailure(t);} }; }
     private Callback<Void> boolWrap(ApiCallback<Boolean> cb, String tag) { return new Callback<Void>() {
-        @Override public void onResponse(Call<Void> call, Response<Void> res) { cb.onSuccess(res.isSuccessful()); }
+        @Override public void onResponse(Call<Void> call, Response<Void> res) {
+            cb.onSuccess(res.isSuccessful());
+        }
         @Override public void onFailure(Call<Void> call, Throwable t) { Log.e("BidRepo", tag, t); cb.onFailure(t);} }; }
 }
