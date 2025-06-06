@@ -24,7 +24,6 @@ public class MainWindow extends BaseActivity {
 
     private MainWindowVM viewModel;
     private ProductListAdapter adapter;
-    private EditText searchInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class MainWindow extends BaseActivity {
     }
 
     private void setupSearchInput() {
-        searchInput = findViewById(R.id.search_input);
+        EditText searchInput = findViewById(R.id.search_input);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}

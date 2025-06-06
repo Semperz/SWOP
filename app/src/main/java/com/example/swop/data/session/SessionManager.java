@@ -32,7 +32,7 @@ public class SessionManager {
     public SessionManager(Context ctx) {
         this.prefs = SecurePrefs.get(ctx, PREFS);
 
-        // Retrofit mínimo sólo para /login (sin interceptor)
+
         Retrofit retrofitLite = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -70,5 +70,9 @@ public class SessionManager {
     }
 
     public void clear() { prefs.edit().clear().apply(); }
+
+    public AuthApi getAuthApi() {
+        return authApi;
+    }
 }
 
