@@ -21,15 +21,10 @@
         app:showAsAction="always"/>
 
     <!-- sub-menú Categorías -->
-    <item android:id="@+id/overflow_categories"
-        android:icon="@drawable/more_vert_24"
-        android:title="@string/categorias"
-        app:showAsAction="never">
-        <menu>
-            <item android:id="@+id/cat_lego"
-                android:title="@string/lego"/>
-            <item android:id="@+id/cat_merch"
-                android:title="@string/merchandising"/>
-        </menu>
-    </item>
+    <item android:id="@+id/cat_lego"
+        android:title="@string/lego"
+        app:showAsAction="never"/>
+    <item android:id="@+id/cat_merch"
+        android:title="@string/merchandising"
+        app:showAsAction="never"/>
 </menu>

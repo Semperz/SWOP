@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="brand_yellow">#FFEB3B</color>      <!-- tono principal -->
     <color name="brand_yellow_dark">#FBC02D</color> <!-- para status/elevation -->
-    <color name="toolbar_scrim">#CC000000</color>   <!-- 80 % negro -->
+    <color name="toolbar_scrim">#CC000000</color>
+    <color name="red">#FF0000</color>   <!-- 80 % negro -->
 
 </resources>
