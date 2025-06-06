@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Contraseña -->
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Nombre completo -->
+        <EditText
+            android:id="@+id/input_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre completo"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Dirección de facturación -->
+        <EditText
+            android:id="@+id/input_billing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dirección de facturación"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Dirección de envío -->
+        <EditText
+            android:id="@+id/input_shipping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dirección de envío"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- País -->
+        <EditText
+            android:id="@+id/input_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="País"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Teléfono -->
+        <EditText
+            android:id="@+id/input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono"
+            android:inputType="phone"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/brand_yellow"
+            android:textColor="@color/white"
+            android:textColorHint="@color/brand_yellow_dark" />
+
+        <!-- Botón de registro -->
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear cuenta"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/brand_yellow" />
+
+        <!-- Error -->
+        <TextView
+            android:id="@+id/register_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/brand_yellow_dark"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>
