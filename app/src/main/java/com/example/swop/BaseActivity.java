@@ -5,9 +5,12 @@ import android.graphics.ImageDecoder;
 import android.graphics.drawable.AnimatedImageDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.swop.profile.ProfileActivity;
@@ -29,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         MaterialToolbar tb = findViewById(R.id.toolbar);
         if (tb != null) {
-            setSupportActionBar(tb);
+            setUpToolbar(tb);
         }
     }
 
@@ -63,6 +66,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        Log.d("MENU", "Menú inflado");
+        return true;
+    }
+
     private void setUpToolbar(MaterialToolbar tb) {
         setSupportActionBar(tb);
         tb.setOnMenuItemClickListener(item -> {
@@ -80,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 openCategory("lego");
                 return true;
             } else if (id == R.id.cat_merch) {
-                openCategory("merch");
+                openCategory("merchandising");
                 return true;
             } else{
                 return false;
@@ -88,13 +98,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void openCategory(String category) {
-        Intent i = new Intent(this, CategoryActivity.class).putExtra("category", category);
-        Log.d("BaseActivity", "Opening category: " + category);
-        if (!category.equals(getIntent().getStringExtra("category"))) {
-            startActivity(i);
-        } else {
-            Log.d("BaseActivity", "Category already open: " + category);
-        }
+        Intent i = new Intent(this, CategoryActivity.class)
+                .putExtra("category", category)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Log.d("Toolbar", "Category option clicked: " + category);
+
+        startActivity(i);
     }
 }
