@@ -42,7 +42,7 @@
             android:text="@string/tienda"
             android:fontFamily="@font/star_jedi"
             android:textColor="@color/black"
-            android:backgroundTint="@color/brand_yellow"
+            android:backgroundTint="@color/brand_yellow_dark"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:layout_marginBottom="16dp"/>
@@ -55,7 +55,7 @@
             android:text="@string/pujas"
             android:fontFamily="@font/star_jedi"
             android:textColor="@color/black"
-            android:backgroundTint="@color/brand_yellow_dark"
+            android:backgroundTint="@color/brand_yellow"
             android:textAllCaps="false"
             android:textStyle="bold"/>
     </LinearLayout>
