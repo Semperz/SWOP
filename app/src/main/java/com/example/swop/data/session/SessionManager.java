@@ -5,16 +5,12 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
-
 import com.example.swop.data.local.SecurePrefs;
 import com.example.swop.data.remote.api.AuthApi;
 import com.example.swop.data.remote.models.AuthRequest;
 import com.example.swop.data.remote.models.LoginResponse;
 import com.example.swop.data.util.JwtUtils;
 
-import java.io.IOException;
-
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,7 +28,6 @@ public class SessionManager {
     public SessionManager(Context ctx) {
         this.prefs = SecurePrefs.get(ctx, PREFS);
 
-
         Retrofit retrofitLite = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -40,25 +35,42 @@ public class SessionManager {
         this.authApi = retrofitLite.create(AuthApi.class);
     }
 
-    public synchronized @Nullable String getValidToken() {
+    // Ahora asíncrono: recibe un callback
+    public void getValidToken(ReloginCallback callback) {
         String token = prefs.getString(KEY_TOKEN, null);
-        if (token != null && !JwtUtils.isExpired(token)) return token;
-        return relogin();
+        if (token != null && !JwtUtils.isExpired(token)) {
+            callback.onResult(token);
+        } else {
+            reloginAsync(callback);
+        }
+    }
+    public String getToken() {
+        return prefs.getString(KEY_TOKEN, null);
     }
 
-    private @Nullable String relogin() {
+    public void reloginAsync(ReloginCallback callback) {
         String email = prefs.getString(KEY_EMAIL, null);
         String pass  = prefs.getString(KEY_PASS , null);
-        if (email == null || pass == null) return null;
-        try {
-            Response<LoginResponse> res = authApi.login(new AuthRequest(email, pass)).execute();
-            if (!res.isSuccessful() || res.body() == null) return null;
-            String newToken = res.body().getToken();
-            prefs.edit().putString(KEY_TOKEN, newToken).apply();
-            return newToken;
-        } catch (IOException e) {
-            return null;
+        if (email == null || pass == null) {
+            callback.onResult(null);
+            return;
         }
+        authApi.login(new AuthRequest(email, pass)).enqueue(new retrofit2.Callback<LoginResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<LoginResponse> call, retrofit2.Response<LoginResponse> res) {
+                if (!res.isSuccessful() || res.body() == null) {
+                    callback.onResult(null);
+                    return;
+                }
+                String newToken = res.body().getToken();
+                prefs.edit().putString(KEY_TOKEN, newToken).apply();
+                callback.onResult(newToken);
+            }
+            @Override
+            public void onFailure(retrofit2.Call<LoginResponse> call, Throwable t) {
+                callback.onResult(null);
+            }
+        });
     }
 
     public void saveCredentials(String email, String pass, String token) {
@@ -75,4 +87,3 @@ public class SessionManager {
         return authApi;
     }
 }
-

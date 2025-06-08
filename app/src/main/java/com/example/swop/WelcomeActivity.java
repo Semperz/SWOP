@@ -26,15 +26,19 @@ public class WelcomeActivity extends BaseActivity implements LoginCallback {
         });
 
         btnPujas.setOnClickListener(v -> {
-            if (sessionManager.getValidToken() != null) {
-                // Token válido, ir directo a BidsActivity
-                startActivity(new Intent(this, BidsActivity.class));
-            } else {
-                // No token o expirado -> mostrar diálogo login
-                LoginDialogFragment dialog = new LoginDialogFragment();
-                dialog.setCallback(this);
-                dialog.show(getSupportFragmentManager(), "LoginDialog");
-            }
+            sessionManager.getValidToken(token -> {
+                runOnUiThread(() -> {
+                    if (token != null) {
+                        // Token válido o renovado, ir a BidsActivity
+                        startActivity(new Intent(this, BidsActivity.class));
+                    } else {
+                        // No hay credenciales o relogin falló -> mostrar diálogo login
+                        LoginDialogFragment dialog = new LoginDialogFragment();
+                        dialog.setCallback(this);
+                        dialog.show(getSupportFragmentManager(), "LoginDialog");
+                    }
+                });
+            });
         });
     }
     @Override protected int getLayoutResId() {return R.layout.activity_welcome;}

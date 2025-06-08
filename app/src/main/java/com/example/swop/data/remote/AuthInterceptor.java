@@ -24,7 +24,7 @@ public class AuthInterceptor implements Interceptor {
             return chain.proceed(original);
         }
 
-        String token = session.getValidToken();
+        String token = session.getToken();
         Request req = (token == null) ? original : original.newBuilder()
                 .header("Authorization", "Bearer " + token)
                 .build();
@@ -32,7 +32,6 @@ public class AuthInterceptor implements Interceptor {
         Response res = chain.proceed(req);
         if (res.code() == 401) {
             session.clear();
-            // Aquí podrías emitir un broadcast para lanzar LoginActivity
         }
         return res;
     }
