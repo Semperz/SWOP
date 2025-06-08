@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.swop.R;
+import com.example.swop.data.remote.RetrofitClient;
 import com.example.swop.data.remote.models.ProductDto;
 
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
@@ -29,10 +30,12 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
         // Formatear precio
         String priceText = "$" + product.getPrice().toPlainString();
         textPrice.setText(priceText);
+        String imageName = product.getImage();
+        String imageUrl = RetrofitClient.getBaseUrl()+ "img/" + imageName;
 
         // Cargar imagen con Glide
         Glide.with(itemView.getContext())
-                .load(product.getThumbnail())
+                .load(imageUrl)
                 .centerCrop()
                 .placeholder(R.drawable.placeholder_image)
                 .into(imageProduct);
