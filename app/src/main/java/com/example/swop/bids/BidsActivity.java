@@ -2,28 +2,27 @@ package com.example.swop.bids;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.swop.BaseActivity;
 import com.example.swop.R;
+import com.example.swop.data.remote.RetrofitClient;
 import com.example.swop.data.remote.models.BidDto;
 import com.example.swop.data.remote.models.ProductDto;
+import com.example.swop.data.util.NotifUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 
 public class BidsActivity extends BaseActivity {
 
@@ -36,18 +35,26 @@ public class BidsActivity extends BaseActivity {
 
     private CountDownTimer auctionTimer;
     private ObjectAnimator colorAnimator;
-    private final long totalTimeMillis = 60 * 60 * 1000 + 20; // 24h
-    private final long warningTimeMillis = 60 * 60 * 1000; // 1 hora antes de finalizar
+
+    private boolean auctionEnded = false;
+    private final long warningTimeMillis = 60 * 60 * 1000; // 1 hora
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bids);
 
-        // Views
+        // Crea el canal de notificaciones y solicita permisos si es necesario
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+        NotifUtils.createChannel(getApplicationContext());
+
+        // Inicializa las vistas
         initializeViews();
 
-        // Obtener ViewModel con AndroidViewModelFactory para pasar Application al constructor
         vm = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
                 .get(BidsVM.class);
 
@@ -56,11 +63,14 @@ public class BidsActivity extends BaseActivity {
                 tvProductName.setText(product.getName().toLowerCase());
                 tvStartingPrice.setText("Precio inicial: $" + product.getPrice());
                 updateHighestBidDisplay();
-                startCountdown();
-                Glide.with(BidsActivity.this).
-                load(product.getImage()).centerCrop().placeholder(R.drawable.placeholder_image)
-                    .error(R.drawable.placeholder_image)
-                .into(ivProductImage);
+                String imageName = product.getImage();
+                String imageUrl = RetrofitClient.getBaseUrl()+ "img/" + imageName;
+                Glide.with(this)
+                        .load(imageUrl)
+                        .centerCrop()
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
+                        .into(ivProductImage);
             }
         });
 
@@ -68,39 +78,56 @@ public class BidsActivity extends BaseActivity {
 
         vm.getMessage().observe(this, message -> {
             if (message != null && !message.isEmpty()) {
-                Toast.makeText(BidsActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 vm.clearMessage();
+            }
+        });
+
+        // Observa el tiempo restante y gestiona el contador
+        vm.getTimeLeftMillis().observe(this, millis -> {
+            if (auctionTimer != null) auctionTimer.cancel();
+            if (millis != null && millis > 0) {
+                startCountdown(millis);
+            } else {
+                tvTimer.setText("¡Tiempo finalizado!");
+                stopWarningAnimation();
+                tvTimer.setTextColor(getResources().getColor(R.color.red, null));
+                if (!auctionEnded) {
+                    auctionEnded = true;
+                    vm.nextAuctionProduct();
+                }
             }
         });
 
         btnPlaceBid.setOnClickListener(v -> {
             String bidText = etBidAmount.getText().toString();
             if (bidText.isEmpty()) {
-                Toast.makeText(BidsActivity.this, "Introduce un importe válido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Introduce un importe válido", Toast.LENGTH_SHORT).show();
                 return;
             }
             BigDecimal bidAmount;
             try {
                 bidAmount = new BigDecimal(bidText);
             } catch (NumberFormatException e) {
-                Toast.makeText(BidsActivity.this, "Introduce un importe válido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Introduce un importe válido", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             ProductDto product = vm.getSelectedProduct().getValue();
             if (product == null) {
-                Toast.makeText(BidsActivity.this, "Producto no cargado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Producto no cargado", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             BigDecimal minBid = vm.getMinimumBidAmount();
             if (bidAmount.compareTo(minBid) < 0) {
-                Toast.makeText(BidsActivity.this, "La puja debe ser al menos $" + minBid.setScale(2, RoundingMode.HALF_UP), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "La puja debe ser al menos $" + minBid.setScale(2, RoundingMode.HALF_UP), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             btnPlaceBid.setEnabled(false);
             vm.placeOrUpdateBid(bidAmount, () -> runOnUiThread(() -> {
+                Toast.makeText(this, "Puja realizada con éxito", Toast.LENGTH_LONG).show();
                 btnPlaceBid.setEnabled(true);
                 etBidAmount.setText("");
             }));
@@ -133,13 +160,13 @@ public class BidsActivity extends BaseActivity {
         tvHighestBid.setText("Puja más alta: $" + displayAmount.setScale(2, RoundingMode.HALF_DOWN));
     }
 
-    private void startCountdown() {
-        auctionTimer = new CountDownTimer(totalTimeMillis, 1000) {
+    private void startCountdown(long millisUntilFinished) {
+        auctionTimer = new CountDownTimer(millisUntilFinished, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {
-                updateTimerDisplay(millisUntilFinished);
+            public void onTick(long millisLeft) {
+                updateTimerDisplay(millisLeft);
 
-                if (millisUntilFinished <= warningTimeMillis && colorAnimator == null) {
+                if (millisLeft <= warningTimeMillis && colorAnimator == null) {
                     startWarningAnimation();
                 }
             }
@@ -149,6 +176,10 @@ public class BidsActivity extends BaseActivity {
                 tvTimer.setText("¡Tiempo finalizado!");
                 stopWarningAnimation();
                 tvTimer.setTextColor(getResources().getColor(R.color.red, null));
+                if (!auctionEnded) {
+                    auctionEnded = true;
+                    vm.nextAuctionProduct(); // Notifica al ViewModel que la subasta ha terminado
+                }
             }
         }.start();
     }
