@@ -20,10 +20,12 @@ public class ProductDto {
     private Integer stock;
     private String createDate;
 
+    private LocalDateTime auctionEndTime;
+
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String sku, String name, BigDecimal price, Double weight, String descriptions, String thumbnail, String image, List<Long> categoryIds, Integer stock, String createDate) {
+    public ProductDto(Long id, String sku, String name, BigDecimal price, Double weight, String descriptions, String thumbnail, String image, List<Long> categoryIds, Integer stock, String createDate, LocalDateTime auctionEndTime) {
         this.id = id;
         this.sku = sku;
         this.name = name;
@@ -35,6 +37,15 @@ public class ProductDto {
         this.categoryIds = categoryIds;
         this.stock = stock;
         this.createDate = createDate;
+        this.auctionEndTime = auctionEndTime;
+    }
+
+    public LocalDateTime getAuctionEndTime() {
+        return auctionEndTime;
+    }
+
+    public void setAuctionEndTime(LocalDateTime auctionEndTime) {
+        this.auctionEndTime = auctionEndTime;
     }
 
     public Long getId() {

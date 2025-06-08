@@ -47,6 +47,10 @@ public class ProductRepository {
         api.delete(id).enqueue(boolWrap(cb, "deleteProduct"));
     }
 
+    public void getAuctedProduct(ApiCallback<ProductDto> cb) {
+        api.getAuctedProduct().enqueue(wrap(cb, "getAuctedProduct"));
+    }
+
     //Helpers
     private <R> Callback<R> wrap(ApiCallback<R> cb, String tag) { return new Callback<R>() {
             @Override public void onResponse(Call<R> call, Response<R> res) { if (res.isSuccessful()) cb.onSuccess(res.body()); else cb.onFailure(new Exception("HTTP " + res.code()));}

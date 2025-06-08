@@ -24,5 +24,8 @@ public interface ProductApi {
 
     @GET("api/products/category/{categoryId}")
     Call<List<ProductDto>> getByCategory(@Path("categoryId") long categoryId);
+
+    @GET("api/products/auction")
+    Call<ProductDto> getAuctedProduct();
 }
 
