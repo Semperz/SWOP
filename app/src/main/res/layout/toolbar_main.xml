@@ -7,5 +7,6 @@
     android:layout_height="?attr/actionBarSize"
     style="@style/Widget.Swop.Toolbar"
     app:popupTheme="@style/ThemeOverlay.Swop.ToolbarPopup"
+    app:title=""
     app:menu="@menu/menu_main"/>
 

@@ -75,6 +75,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setUpToolbar(MaterialToolbar tb) {
         setSupportActionBar(tb);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         tb.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.action_home) {
