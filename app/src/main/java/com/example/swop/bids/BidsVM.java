@@ -2,6 +2,7 @@ package com.example.swop.bids;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -424,8 +425,8 @@ public class BidsVM extends AndroidViewModel {
                 order.setShippingAddress(customer.getDefaultShippingAddress());
                 order.setOrderAddress(customer.getDefaultShippingAddress());
                 order.setOrderEmail(customer.getEmail());
+                order.setFromAuction(true);
                 Log.d("OrderDebug", new Gson().toJson(order));
-
                 orderRepo.create(order, new ApiCallback<>() {
                     @Override
                     public void onSuccess(OrderDto createdOrder) {
@@ -441,7 +442,7 @@ public class BidsVM extends AndroidViewModel {
 
             @Override
             public void onFailure(Throwable t) {
-                // Manejar error al obtener el customer
+                Toast.makeText(getApplication(), "Error al obtener el cliente ganador.", Toast.LENGTH_SHORT).show();
             }
         });
     }

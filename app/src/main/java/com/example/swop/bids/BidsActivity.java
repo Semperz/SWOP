@@ -42,7 +42,7 @@ public class BidsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bids);
+
 
         // Crea el canal de notificaciones y solicita permisos si es necesario
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
