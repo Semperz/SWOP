@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona método de pago"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/brand_yellow"
+            android:layout_marginBottom="12dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brand_yellow"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalizar compra"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/brand_yellow_dark"/>
+    </LinearLayout>
+</ScrollView>
