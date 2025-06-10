@@ -34,7 +34,7 @@ public class CategoryVM extends AndroidViewModel {
     }
 
     public void loadProductsByCategoryName(String categoryName) {
-        categoryRepo.getAll(new ApiCallback<List<CategoryDto>>() {
+        categoryRepo.getAll(new ApiCallback<>() {
             @Override
             public void onSuccess(List<CategoryDto> categories) {
                 Optional<CategoryDto> match = categories.stream()

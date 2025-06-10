@@ -31,7 +31,7 @@ public class CategoryActivity extends BaseActivity {
         // Set click listener si usas navegación a detalles
         adapter.setOnItemClickListener(product -> {
             Intent i = new Intent(this, ProductDetailActivity.class);
-            i.putExtra("productId", product.getId());
+            i.putExtra("product_Id", product.getId());
             startActivity(i);
         });
 
