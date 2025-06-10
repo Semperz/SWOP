@@ -60,7 +60,14 @@ public class MainWindow extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.searchProducts(s.toString());
+                String lower = s.toString().toLowerCase();
+                if (!lower.equals(s.toString())) {
+                    searchInput.removeTextChangedListener(this);
+                    searchInput.setText(lower);
+                    searchInput.setSelection(lower.length());
+                    searchInput.addTextChangedListener(this);
+                }
+                viewModel.searchProducts(lower);
             }
         });
     }
