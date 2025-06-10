@@ -27,7 +27,7 @@ public class ProductDetailVM extends AndroidViewModel {
 
 
     public void loadProductById(Long productId) {
-        productRepository.getById(productId, new ApiCallback<ProductDto>() {
+        productRepository.getById(productId, new ApiCallback<>() {
             @Override
             public void onSuccess(ProductDto product) {
                 productLiveData.postValue(product);
@@ -35,7 +35,7 @@ public class ProductDetailVM extends AndroidViewModel {
 
             @Override
             public void onFailure(Throwable t) {
-                productLiveData.postValue(null); // o manejar error distinto
+                productLiveData.postValue(null);
             }
         });
     }
