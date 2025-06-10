@@ -13,6 +13,10 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.swop.data.session.SessionManager;
+import com.example.swop.login.LoginCallback;
+import com.example.swop.login.LoginDialogFragment;
+import com.example.swop.login.LoginResult;
 import com.example.swop.profile.ProfileActivity;
 import com.example.swop.shop.cartwindow.CartActivity;
 import com.example.swop.shop.categorywindow.CategoryActivity;
@@ -80,14 +84,38 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         tb.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.action_home) {
+            SessionManager sessionManager = new SessionManager(this);
+
+            if (id == R.id.action_profile || id == R.id.action_cart) {
+                sessionManager.getValidToken(token -> {
+                    runOnUiThread(() -> {
+                        if (token != null) {
+                            // Si hay token, abre la actividad correspondiente
+                            if (id == R.id.action_profile) {
+                                startActivity(new Intent(this, ProfileActivity.class));
+                            } else {
+                                startActivity(new Intent(this, CartActivity.class));
+                            }
+                        } else {
+                            // No token -> login
+                            LoginDialogFragment dialog = new LoginDialogFragment();
+                            dialog.setCallback(result -> {
+                                if (result.success) {
+                                    // Si el login es correcto, abre la actividad
+                                    if (id == R.id.action_profile) {
+                                        startActivity(new Intent(BaseActivity.this, ProfileActivity.class));
+                                    } else {
+                                        startActivity(new Intent(BaseActivity.this, CartActivity.class));
+                                    }
+                                }
+                            });
+                            dialog.show(getSupportFragmentManager(), "LoginDialog");
+                        }
+                    });
+                });
+                return true;
+            } else if (id == R.id.action_home) {
                 startActivity(new Intent(this, WelcomeActivity.class));
-                return true;
-            } else if (id == R.id.action_profile) {
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
-            } else if (id == R.id.action_cart) {
-                startActivity(new Intent(this, CartActivity.class));
                 return true;
             } else if (id == R.id.cat_lego) {
                 openCategory("lego");
@@ -95,7 +123,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             } else if (id == R.id.cat_merch) {
                 openCategory("merchandising");
                 return true;
-            } else{
+            } else {
                 return false;
             }
         });
