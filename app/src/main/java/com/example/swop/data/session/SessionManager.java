@@ -35,7 +35,7 @@ public class SessionManager {
         this.authApi = retrofitLite.create(AuthApi.class);
     }
 
-    // Ahora asíncrono: recibe un callback
+    // asíncrono: recibe un callback
     public void getValidToken(ReloginCallback callback) {
         String token = prefs.getString(KEY_TOKEN, null);
         if (token != null && !JwtUtils.isExpired(token)) {
@@ -85,5 +85,14 @@ public class SessionManager {
 
     public AuthApi getAuthApi() {
         return authApi;
+    }
+
+    public String getUserEmail() {
+        return prefs.getString(KEY_EMAIL, null);
+    }
+
+    public boolean isLoggedIn() {
+        String token = prefs.getString(KEY_TOKEN, null);
+        return token != null && !JwtUtils.isExpired(token);
     }
 }
