@@ -25,9 +25,12 @@ import com.example.swop.data.remote.models.OrderDto;
 import com.example.swop.data.remote.models.PaymentMethod;
 import com.example.swop.data.remote.models.ProductDto;
 import com.example.swop.data.util.ApiCallback;
+import com.example.swop.shop.PaymentMethodDialogUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class CartActivity extends BaseActivity {
 
@@ -80,40 +83,13 @@ public class CartActivity extends BaseActivity {
     }
 
     private void showPaymentMethodDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_payment_method, null);
-        builder.setView(dialogView);
-
-        Spinner spinner = dialogView.findViewById(R.id.spinner_payment);
-        Button btnFinish = dialogView.findViewById(R.id.btn_finish);
-
-        // Configura el spinner con los métodos de pago
-        PaymentMethod[] methods = PaymentMethod.values();
-        if (methods.length == 0) {
-            Toast.makeText(this, "No hay métodos de pago disponibles", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String[] displayNames = new String[methods.length];
-        for (int i = 0; i < methods.length; i++) {
-            displayNames[i] = getPaymentMethodDisplayName(methods[i]);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item_payment, displayNames);
-        adapter.setDropDownViewResource(R.layout.spinner_item_payment);
-        spinner.setAdapter(adapter);
-
-        AlertDialog dialog = builder.create();
-
-        btnFinish.setOnClickListener(v -> {
-            int selectedPosition = spinner.getSelectedItemPosition();
-            PaymentMethod selected = methods[selectedPosition];
+        PaymentMethodDialogUtil.show(this, getLayoutInflater(), selected -> {
             cartVM.createOrder(selected, new ApiCallback<>() {
                 @Override
                 public void onSuccess(OrderDto order) {
                     runOnUiThread(() -> {
                         Toast.makeText(CartActivity.this, "Compra realizada con éxito", Toast.LENGTH_SHORT).show();
                         cartVM.clearCart();
-                        dialog.dismiss();
                     });
                 }
                 @Override
@@ -122,8 +98,6 @@ public class CartActivity extends BaseActivity {
                 }
             });
         });
-
-        dialog.show();
     }
 
     private String getPaymentMethodDisplayName(PaymentMethod method) {
