@@ -26,5 +26,8 @@ public interface OrderApi {
 
     @DELETE("api/orders/{id}")
     Call<Void> delete(@Path("id") long id);
+
+    @GET("api/orders/details/productsname/{orderDetailId}")
+    Call<List<String>> getProductNameByOrderDetailId(@Path("orderDetailId") long id);
 }
 

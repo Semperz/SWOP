@@ -25,6 +25,7 @@ public class OrderRepository {
     public void update(long id, OrderDto dto, ApiCallback<OrderDto> cb) { api.update(id, dto).enqueue(wrap(cb, "update")); }
     public void delete(long id, ApiCallback<Boolean> cb) { api.delete(id).enqueue(boolWrap(cb, "delete")); }
 
+    public void getProductNameByOrderDetailId(long orderDetailId, ApiCallback<List<String>> cb) { api.getProductNameByOrderDetailId(orderDetailId).enqueue(wrap(cb, "getProductNamesByOrderId")); }
     private <R> Callback<R> wrap(ApiCallback<R> cb, String tag) { return new Callback<R>() {
         @Override public void onResponse(Call<R> call, Response<R> res) { if (res.isSuccessful()) cb.onSuccess(res.body()); else cb.onFailure(new Exception("HTTP "+res.code())); }
         @Override public void onFailure(Call<R> call, Throwable t) { Log.e("OrderRepo", tag, t); cb.onFailure(t);} }; }
