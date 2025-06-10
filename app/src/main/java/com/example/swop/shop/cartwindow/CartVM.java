@@ -179,7 +179,46 @@ public class CartVM extends AndroidViewModel {
                 order.setOrderEmail(customer.getEmail());
                 order.setFromAuction(false);
 
-                orderRepository.create(order, callback);
+                orderRepository.create(order, new ApiCallback<>() {
+                    @Override
+                    public void onSuccess(OrderDto order) {
+                        // Restar stock a cada producto
+                        for (CartItem item : cartItems) {
+                            ProductDto product = item.getProduct();
+                            int newStock = (product.getStock() != null ? product.getStock() : 0) - item.getQuantity();
+                            if (newStock < 0) newStock = 0;
+                            ProductDto updatedProduct = new ProductDto();
+                            updatedProduct.setName(product.getName());
+                            updatedProduct.setDescriptions(product.getDescriptions());
+                            updatedProduct.setPrice(product.getPrice());
+                            updatedProduct.setSku(product.getSku());
+                            updatedProduct.setCategoryIds(product.getCategoryIds());
+                            updatedProduct.setImage(product.getImage());
+                            updatedProduct.setStock(newStock);
+                            updatedProduct.setAuctionEndTime(product.getAuctionEndTime());
+                            updatedProduct.setWeight(product.getWeight());
+                            updatedProduct.setCreateDate(product.getCreateDate());
+                            updatedProduct.setThumbnail(product.getThumbnail());
+
+                            productRepository.update(product.getId(), updatedProduct, new ApiCallback<>() {
+                                @Override
+                                public void onSuccess(ProductDto result) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Throwable t) {
+                                }
+                            });
+                        }
+                        callback.onSuccess(order);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        callback.onFailure(t);
+                    }
+                });
             }
 
             @Override
