@@ -421,7 +421,7 @@ public class BidsVM extends AndroidViewModel {
                 order.setAmount(winningBid.getBidAmount());
                 order.setOrderDate(java.time.LocalDateTime.now());
                 order.setOrderStatus(OrderStatus.PROCESSED);
-                order.setPaymentMethod(PaymentMethod.PAYPAL);
+                order.setPaymentMethod(PaymentMethod.NOT_APPLICABLE);
                 order.setShippingAddress(customer.getDefaultShippingAddress());
                 order.setOrderAddress(customer.getDefaultShippingAddress());
                 order.setOrderEmail(customer.getEmail());
