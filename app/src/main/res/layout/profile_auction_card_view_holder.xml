@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Nombre del producto -->
+        <TextView
+            android:id="@+id/text_auction_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Producto subastado"
+            android:textColor="@color/brand_yellow_dark"
+            android:textSize="16sp"
+            android:fontFamily="@font/star_jedi"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- Precio pagado final -->
+        <TextView
+            android:id="@+id/text_auction_final_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="120,00 €"
+            android:textColor="@color/brand_yellow_dark"
+            android:textSize="15sp"
+            android:fontFamily="@font/star_jedi"
+            android:paddingBottom="12dp" />
+
+        <!-- Botón Pagar -->
+        <Button
+            android:id="@+id/btn_pay_auction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pagar"
+            android:textAllCaps="false"
+            android:textColor="@color/brand_yellow"
+            android:fontFamily="@font/star_jedi"
+            android:backgroundTint="@color/toolbar_scrim"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
