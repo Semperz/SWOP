@@ -3,6 +3,7 @@ package com.example.swop.login;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +79,7 @@ public class LoginDialogFragment extends DialogFragment {
                 @Override
                 public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                     Toast.makeText(getContext(), "Error de red", Toast.LENGTH_SHORT).show();
+                    Log.e("LoginDialog", "Error al iniciar sesión", t);
                     if (callback != null) callback.onLoginResult(LoginResult.failure("Error de red"));
                 }
             });

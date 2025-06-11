@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SessionManager {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+    private static final String BASE_URL = "https://swopbackend.onrender.com/";
     private static final String PREFS = "creds_prefs";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASS = "password";
